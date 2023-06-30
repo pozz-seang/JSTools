@@ -17,6 +17,7 @@ const getThumbnails = (req, res) => {
                         getThumbnails(req, res)
                     }, 2000);
                 } else {
+                    console.log(thumbnails.data);
                     res.json(thumbnails.data)
                 }
             } else if (t.error) {
@@ -63,8 +64,8 @@ const sendEmail = (email) => {
     })
 }
 
-const getPEImage = ()=>{
-    
+const getPEImage = () => {
+
 }
 
 
