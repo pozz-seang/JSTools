@@ -146,10 +146,22 @@ app.post('/register', async (req, res) => {
         data.password = await hash(password, 10)
         const createUser = await DB.from(DB_User).insert([data])
         if (createUser.error) return res.json({ error: "Register Error" })
-        console.log(data);
-        const dataAccessToken = { email }
-        const access_token = JWTSign(dataAccessToken)
-        res.json({ access_token })
+        DB.from(DB_User).select(`id, email, password`).eq("email", email)
+            .then((result) => {
+                const { data, error } = result
+                if (error) return res.json({ error: "Register Error" })
+                console.log(data);
+                const dataAccessToken = {
+                    id: data[0].id,
+                    email: data[0].email
+                }
+                const access_token = JWTSign(dataAccessToken)
+                res.json({ access_token })
+
+            })
+            .catch((e) => {
+                res.json({ error: "Register Error" })
+            })
     } catch (e) {
         console.log("Register Error", e);
         res.json({ error: "Register Error" })
