@@ -18,6 +18,7 @@ const QRCode = require('qrcode');
 
 const { GeneratePaymentMethod, CheckAllUserPayment, CheckUser } = require("./Function/PaymentMethod");
 const { firebaseConfig } = require("./core/firebase");
+const { DownloadVideos } = require("./Function/DownloadVideo");
 
 
 
@@ -347,6 +348,12 @@ app.post('/publishPost', (req, res) => {
     publishPost(req, res)
 })
 
+
+//get download videos
+
+app.get('/downloadVideo', (req, res) => {
+    DownloadVideos(res, req.query.url)
+})
 
 
 
