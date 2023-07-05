@@ -352,7 +352,16 @@ app.post('/publishPost', (req, res) => {
 //get download videos
 
 app.get('/downloadVideo', (req, res) => {
-    DownloadVideos(res, req.query.url)
+    if (req.query.url) {
+        DownloadVideos(res, req.query.url)
+    } else {
+        const data = {
+            msg: "No one",
+            status: false
+        }
+        res.json(data);
+    }
+
 })
 
 
