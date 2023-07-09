@@ -1,7 +1,7 @@
 const { DB, DB_User } = require("./Database")
 const { GetUser } = require("./GetUser")
 
-
+ 
 const getCTAOption = async (req, res) => {
     const { email } = req.user
     try {

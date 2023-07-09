@@ -20,6 +20,7 @@ const { GeneratePaymentMethod, CheckAllUserPayment, CheckUser } = require("./Fun
 const { firebaseConfig } = require("./core/firebase");
 const { DownloadVideos } = require("./Function/DownloadVideo");
 const { getCTAOption, addCTAOption, removeCTAOption } = require("./Function/CTAOptions");
+const { getAllUserAdmin, addMonthsForUserAdmin } = require("./Function/AdminDashboard");
 
 
 
@@ -366,35 +367,23 @@ app.get('/downloadVideo', (req, res) => {
 })
 
 
-app.post('/getCTAOption', JWTVerify, async (req, res) => {
+app.post('/getCTAOption', JWTVerify, (req, res) => {
     getCTAOption(req, res)
 })
 
-app.post('/addCTAOption', JWTVerify, async (req, res) => {
+app.post('/addCTAOption', JWTVerify, (req, res) => {
     addCTAOption(req, res)
 })
 
-app.post('/removeCTAOption', JWTVerify, async (req, res) => {
+app.post('/removeCTAOption', JWTVerify, (req, res) => {
     removeCTAOption(req, res)
 })
 
 
-app.post('/getAllUserAdmin', JWTVerify, async (req, res) => {
-    const { email } = req.user
-    try {
-        if (email) {
-            const { data, error } = await DB.from(DB_User).select(`role`).eq('email', email)
-            if (error) return res.json({ error: "Getting Error" })
-            if (data[0].role != "admin") return res.json({ msg: "Your Role is not Admin" })
-            const getDataUser = await DB.from(DB_User).select(`id, username, email, expired, plan, role, created_at`).order('id')
-            if (getDataUser.error) return res.json({ error: "Getting Error" })
-            res.json(getDataUser.data)
-        } else {
-            console.log("Getting Error");
-            res.json({ error: "Getting Error" })
-        }
-    } catch (e) {
-        console.log("Getting Error", e);
-        res.json({ error: "Getting Error" })
-    }
+app.post('/getAllUserAdmin', JWTVerify, (req, res) => {
+    getAllUserAdmin(req, res)
+})
+
+app.post('/addMonthsForUserAdmin', JWTVerify, (req, res) => {
+    addMonthsForUserAdmin(req, res)
 })
