@@ -16,7 +16,7 @@ const adcreatives = (req, res) => {
     if (CTALink == "") cta_link = "https://web.facebook.com/" + pageId
     else cta_link = CTALink
 
-    if (CTAHeader == "") cta_link_title = "https://web.facebook.com/" + pageName
+    if (CTAHeader == "") cta_link_title = pageName
     else cta_link_title = CTAHeader
 
     if (cta_type == "LIKE_PAGE") cta_value["page"] = pageId
