@@ -4,7 +4,7 @@ const { CreateTokenLogin, CreateTokenForgotPassword } = require("../utils/JWT")
 const { DeviceLogin } = require("./DeviceLogin")
 const { CheckUsername, CheckEmail } = require("../utils/DB/CheckData")
 const { DB, DB_User } = require("../core/Database")
-const { sendEmail } = require("../utils/email")
+const { sendEmail } = require("../utils/Email")
 
 
 const registerController = async (req, res) => {
