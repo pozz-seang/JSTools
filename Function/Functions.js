@@ -1,6 +1,5 @@
 const { default: axios } = require("axios")
 const { FbApiFull } = require("./FacebookApi")
-const { createTransport } = require("nodemailer")
 
 const getThumbnails = (req, res) => {
     const { access_token, video_id } = req.query
@@ -17,7 +16,6 @@ const getThumbnails = (req, res) => {
                         getThumbnails(req, res)
                     }, 2000);
                 } else {
-                    console.log(thumbnails.data);
                     res.json(thumbnails.data)
                 }
             } else if (t.error) {
@@ -40,37 +38,10 @@ const getThumbnails = (req, res) => {
 }
 
 
-const sendEmail = (email) => {
-    const systemEmail = "JSTOOLS168@gmail.com"
-    createTransport({
-        service: "gmail",
-        auth: {
-            user: systemEmail,
-            pass: "ovhxhzppuflkjmqv"
-        },
-        tls: {
-            rejectUnauthorized: false
-        }
-    }).sendMail({
-        from: `JSTools <${systemEmail}>`,
-        to: email,
-        subject: "Reset Password Notification",
-        name: "Updates",
-        html: { path: "./thememail.html" },
-        text: "Test sent email!!",
-    }, function (err, success) {
-        if (err) console.log(err)
-        else console.log("Email sent successfully!")
-    })
-}
 
-const getPEImage = () => {
-
-}
 
 
 
 module.exports = {
-    getThumbnails,
-    sendEmail
+    getThumbnails
 }

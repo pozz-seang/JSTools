@@ -1,10 +1,10 @@
-const { DB, DB_User } = require("./Database")
+const { DB, DB_User }= require("../core/Database")
 
 const getAllUserAdmin = async (req, res) => {
-    const { email } = req.user
+    const { id } = req.user
     try {
-        if (email) {
-            const { data, error } = await DB.from(DB_User).select(`role`).eq('email', email)
+        if (id) {
+            const { data, error } = await DB.from(DB_User).select(`role`).eq('id', id)
             if (error) return res.json({ error: "Getting Error" })
             if (data[0].role != "admin") return res.json({ msg: "Your Role is not Admin" })
             const getDataUser = await DB.from(DB_User).select(`id, username, email, expired, plan, role, created_at`).order('id')
@@ -20,11 +20,11 @@ const getAllUserAdmin = async (req, res) => {
     }
 }
 const addMonthsForUserAdmin = async (req, res) => {
-    const { email } = req.user
+    const { id } = req.user
     const { user } = req.body
     try {
-        if (email) {
-            const { data, error } = await DB.from(DB_User).select(`role`).eq('email', email)
+        if (id) {
+            const { data, error } = await DB.from(DB_User).select(`role`).eq('id', id)
             if (error) return res.json({ error: "Getting Error" })
             if (data[0].role != "admin") return res.json({ msg: "Your Role is not Admin" })
             const upload = await DB.from(DB_User).update({ plan: user.plan, expired: user.expires }).eq('id', user.id)

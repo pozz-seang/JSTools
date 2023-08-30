@@ -1,7 +1,13 @@
 const { default: axios } = require("axios");
 const request = require("request");
 
-const DownloadVideos = (res, url) => {
+const DownloadVideos = (req, res) => {
+    const url = req.query.url
+    if (!url) {
+        const data = { msg: "No one", status: false }
+        return res.json(data);
+    }
+
     if (url.match(/youtu.be/) || url.match(/youtube.com/)) {
         DYT(res, url)
     } else if (url.match(/facebook.com/) || url.match(/fb.watch/)) {
@@ -50,8 +56,7 @@ const DTT = (res, url) => {
     axios.get('https://news.thecamtool.com/TikGet-main/exemple.php?url=' + url)
         .then((result) => {
             response(res, result.data.video.download_url, result.data.video.title, true, "Successfully")
-        })
-        .catch((error) => {
+        }).catch((error) => {
             response(res, null, null, false, "TikTok video download failed")
         });
 }
@@ -59,9 +64,7 @@ const DYT = (res, url) => {
     axios.get('https://news.thecamtool.com/TikGet-main/yt.php?id=' + url)
         .then((result) => {
             response(res, result.data.data.format, result.data.data.title, true, "Successfully")
-
-        })
-        .catch((error) => {
+        }).catch((error) => {
             response(res, null, null, false, "YouTube video download failed")
         });
 }

@@ -1,9 +1,9 @@
 const { default: axios } = require("axios");
-const { DB, DB_PaymentMethod, DB_User } = require("./Database");
 const { BakongKHQR, khqrData, IndividualInfo } = require("bakong-khqr");
 const { addDate } = require("./Date");
 const QRCode = require('qrcode');
 const { GetUser } = require("./GetUser");
+const { DB, DB_PaymentMethod, DB_User } = require("../core/Database");
 
 const BakongToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2OTUzMDM0MjAsImlhdCI6MTY4NzI2ODIyMCwiZGF0YSI6eyJpZCI6IjM2M2ZmNjg0ODA3YTRlMyJ9fQ.LiJOoV39TBTn0B-1giG-1lz-QWGESTVL0JzDGnV0Sfk"
 const headers = {
@@ -18,10 +18,10 @@ const dataChecking = []
 const GeneratePaymentMethod = async (req, res) => {
     const { plan, months } = req.body
     var price = 0
-    if (plan == "monthly_starter") price = 2 * months
-    else if (plan == "monthly_premium") price = 3 * months
-    else if (plan == "monthly_business") price = 5 * months
-    price -= 0.01
+    if (plan == "starter") price = 2 * months
+    else if (plan == "premium") price = 3 * months
+    else if (plan == "business") price = 5 * months
+    // price -= 0.01
 
     const optionalData = {
         currency: khqrData.currency.usd,
@@ -29,7 +29,7 @@ const GeneratePaymentMethod = async (req, res) => {
         billNumber: plan,
         mobileNumber: "855962799923",
         storeLabel: "JSTools",
-        // terminalLabel: "starter",
+        terminalLabel: plan,
     };
 
     const individualInfo = new IndividualInfo(
