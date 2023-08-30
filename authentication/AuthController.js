@@ -130,7 +130,7 @@ const forgotPasswordController = async (req, res) => {
 
         const token = CreateTokenForgotPassword({ id: DBEmail.data[0].id, reset_password: true })
         //192.168.1.11:3000 to JSTools.co
-        const link = "http://192.168.1.11:3000/reset_password/" + token
+        const link = "JSTools.co/reset_password/" + token
 
         //send email to user and check success or false
         if (await sendEmail(DBEmail.data[0].email, DBEmail.data[0].username, link)) {
