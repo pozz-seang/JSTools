@@ -21,7 +21,6 @@ const { ConfigAuthRouter } = require("./authentication/ConfigAuth");
 const { checkLogout } = require("./authentication/AuthController");
 const { JWTVerify } = require("./utils/JWT");
 const { DB_User, DB, DB_PaymentMethod } = require("./core/Database");
-const { sendEmail } = require("./utils/email");
 require('dotenv').config();
 
 
