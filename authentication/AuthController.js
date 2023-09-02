@@ -61,22 +61,6 @@ const loginController = (req, res) => {
 
             res.status(200).json({ success: true, msg: 'You are loggedin successfully!', access_token: CreateTokenLogin({ id: data[0].id }) })
 
-
-            // compare(password, data[0].password, async (err, result) => {
-            //     if (err) return res.status(400).json({ success: false, msg: "Login Error!!" })
-            //     if (!result) return res.status(400).json({ success: false, msg: "Your password is invalid!" })
-
-            //     var DataLogin = data[0].device_login.filter((value, index, arr) => { return req.body.device_id != value.deviceId });
-            //     var NewDataLogin = [DeviceLogin(device_id, req.headers['user-agent']), ...DataLogin]
-            //     await DB.from(DB_User).update({ device_login: NewDataLogin }).eq("email", email)
-
-            //     const access_token = CreateTokenLogin({ id: data[0].id })
-            //     try {
-            //         res.status(201).json({ success: true, access_token })
-            //     } catch (e) {
-            //         res.status(400).json({ success: false, msg: "Login Error!!!" })
-            //     }
-            // })
         }).catch((e) => {
             res.status(400).json({ success: false, msg: "Login Error!!!!" })
         })
@@ -129,7 +113,7 @@ const forgotPasswordController = async (req, res) => {
         if (!DBEmail.data[0]) return res.status(404).json({ success: false, msg: "This Email doesn't have a user!" })
 
         const token = CreateTokenForgotPassword({ id: DBEmail.data[0].id, reset_password: true })
-        //192.168.1.11:3000 to JSTools.co
+
         const link = "JSTools.co/reset_password/" + token
 
         //send email to user and check success or false
@@ -143,26 +127,6 @@ const forgotPasswordController = async (req, res) => {
         return res.status(400).json({ success: false, msg: "Forgot password error please try again!" })
     }
 
-
-    // DB.from(DB_User).select(`id, email, password, device_login`).eq("email", email)
-    //     .then(async (result) => {
-    //         const { data, error } = result
-    //         if (error) return res.status(400).json({ success: false, msg: "Forgot Password Controller Error!" })
-    //         if (!data[0]) return res.status(400).json({ success: false, msg: " Your email is invalid!" })
-
-    //         // const veryifyPassword = await compare(password, data[0].password);
-    //         // if (!veryifyPassword) return res.status(400).json({ success: false, msg: "Your password is invalid!" })
-
-    //         // //log user login to account
-    //         // var DataLogin = data[0].device_login.filter((value, index, arr) => { return req.body.device_id != value.deviceId });
-    //         // await DB.from(DB_User).update({ device_login: [DeviceLogin(device_id, req.headers['user-agent']), ...DataLogin] }).eq("email", email)
-
-    //         // res.status(200).json({ success: true, msg: 'You are loggedin successfully!', access_token: CreateTokenLogin({ id: data[0].id }) })
-
-
-    //     }).catch((e) => {
-    //         res.status(400).json({ success: false, msg: "Forgot Password Controller Error!!!!" })
-    //     })
 
 }
 

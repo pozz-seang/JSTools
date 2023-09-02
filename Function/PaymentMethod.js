@@ -4,11 +4,12 @@ const { addDate } = require("./Date");
 const QRCode = require('qrcode');
 const { GetUser } = require("./GetUser");
 const { DB, DB_PaymentMethod, DB_User } = require("../core/Database");
+require('dotenv').config();
 
-const BakongToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2OTUzMDM0MjAsImlhdCI6MTY4NzI2ODIyMCwiZGF0YSI6eyJpZCI6IjM2M2ZmNjg0ODA3YTRlMyJ9fQ.LiJOoV39TBTn0B-1giG-1lz-QWGESTVL0JzDGnV0Sfk"
+
 const headers = {
     headers: {
-        'Authorization': `Bearer ${BakongToken}`,
+        'Authorization': `Bearer ${process.env.Token_PaymentMethod}`,
         'Content-Type': 'application/json'
     }
 }
