@@ -35,7 +35,8 @@ app.use(cors({
     origin: [
         "https://jstool.netlify.app",
         "https://jstools.co",
-        "http://192.168.1.11:3000"
+        "http://192.168.1.11:3000",
+        "http://192.168.1.9:3000"
     ],
     credentials: true,
 }));
