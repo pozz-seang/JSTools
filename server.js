@@ -34,7 +34,8 @@ app.listen(process.env.PORT || 80, () => console.log("Server is running...!"));
 app.use(cors({
     origin: [
         "https://jstool.netlify.app",
-        "https://jstools.co"
+        "https://jstools.co",
+        "http://192.168.100.157:3000"
     ],
     credentials: true,
 }));
